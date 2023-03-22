@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-//Modules
+//Modules  Created Module in order to separate angular material modules from the main
 import { SharedModule } from './shared/shared.module';
 
 //Components

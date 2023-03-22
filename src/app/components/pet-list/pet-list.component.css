@@ -2,12 +2,7 @@ table {
     width: 100%;
 }
 
-.title{
-    background-color: #393e50;
-    padding: 10px;
-    text-align: center;
-    color: white;
-}
+
 
 .container{
     margin: 0 20% /*margin 0 up and down margin 20% left and right*/

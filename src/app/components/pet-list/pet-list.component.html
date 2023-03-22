@@ -44,12 +44,12 @@
         <!--Actions Column-->
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                <button class="addButton" mat-raised-button color="primary">Add Pet</button>
+                <button routerLink="/addPet" class="addButton" mat-raised-button color="primary">ADD PET</button>
             </th>
             <td mat-cell *matCellDef="let element">
-                <mat-icon matTooltip="Show" fontIcon="search" class="search"></mat-icon>
-                <mat-icon matTooltip="Edit" fontIcon="edit" class="edit"></mat-icon>
-                <mat-icon matTooltip="Delete"fontIcon="delete" class="delete"></mat-icon>
+                <mat-icon [routerLink]="['/showPet',2]" matTooltip="Show" fontIcon="search" class="search"></mat-icon>
+                <mat-icon [routerLink]="['/editPet',2]" matTooltip="Edit" fontIcon="edit" class="edit"></mat-icon>
+                <mat-icon [routerLink]="['/showPet',2]" matTooltip="Delete"fontIcon="delete" class="delete"></mat-icon>
 
             </td>
         </ng-container>

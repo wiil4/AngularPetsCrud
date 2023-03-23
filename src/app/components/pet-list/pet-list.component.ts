@@ -3,6 +3,7 @@ import { Pet } from 'src/app/interfaces/pet';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const petsList: Pet[] = [
   {name:'Albus', age:5, race:'Westie', color: 'White', weight: 9},  
@@ -22,12 +23,15 @@ const petsList: Pet[] = [
 })
 
 export class PetListComponent implements AfterViewInit {
+  snackBarDuration : number = 700;
   displayedColumns: string[] = ['name', 'age', 'race', 'color', 'weight', 'actions'];
   dataSource = new MatTableDataSource<Pet>(petsList);
+  loading: boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;  
   @ViewChild(MatSort) sort!:MatSort;
 
+  constructor(private _snackBar: MatSnackBar) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -41,5 +45,18 @@ export class PetListComponent implements AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  deletePet(){
+    this.loading = true;
+
+    setTimeout(()=>{
+      this.loading = false;
+      this._snackBar.open("Pet Correctly Deleted",'',{
+        duration: this.snackBarDuration,
+        horizontalPosition: 'right'
+      });
+    }, 3000);
+    
   }
 }

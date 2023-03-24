@@ -12,7 +12,7 @@ export class AddEditPetComponent implements OnInit{
   form: FormGroup;
 
   constructor(private fb:FormBuilder){
-    this.form = fb.group({
+    this.form = this.fb.group({
       name: ['', Validators.required],
       age: ['', Validators.required],
       race: ['', Validators.required],

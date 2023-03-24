@@ -1,20 +1,11 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, OnInit, Component, ViewChild } from '@angular/core';
 import { Pet } from 'src/app/interfaces/pet';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PetService } from 'src/app/services/pet.service';
 
-const petsList: Pet[] = [
-  {name:'Albus', age:5, race:'Westie', color: 'White', weight: 9},  
-  {name:'Milton', age:7, race:'Golden', color:'Dorado', weight:7},
-  {name:'Benito', age:4, race:'Criollo', color:'Orange', weight:4},
-  {name:'Aquiles', age:10, race:'Labrador', color:'Black', weight:12},  
-  {name:'Jose', age:14, race:'Persa', color:'White', weight:6},
-  {name:'Snow', age:1, race:'German', color:'Brown', weight:17},
-  {name:'Jhon', age:3, race:'Poodle', color:'Gray', weight:8},
-  {name:'Luis', age:12, race:'ShihTzu', color:'Black and White', weight:3.5}
-];
 
 @Component({
   selector: 'app-pet-list',
@@ -22,22 +13,31 @@ const petsList: Pet[] = [
   styleUrls: ['./pet-list.component.css']
 })
 
-export class PetListComponent implements AfterViewInit {
+export class PetListComponent implements OnInit, AfterViewInit {
   snackBarDuration : number = 700;
   displayedColumns: string[] = ['name', 'age', 'race', 'color', 'weight', 'actions'];
-  dataSource = new MatTableDataSource<Pet>(petsList);
+  dataSource = new MatTableDataSource<Pet>();
   loading: boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;  
   @ViewChild(MatSort) sort!:MatSort;
 
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor(private _snackBar: MatSnackBar, private _petService: PetService) {
+  }
+
+  ngOnInit(): void{
+    this.getPets();
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.paginator._intl.itemsPerPageLabel = 'Pets Per Page'
+    if(this.dataSource.data.length > 0)
+    {
+      this.paginator._intl.itemsPerPageLabel = 'Pets Per Page'
+    }    
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -45,6 +45,28 @@ export class PetListComponent implements AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  getPets(){
+    this.loading = true;
+    /*this._petService.getPetsBE().subscribe(data=>{
+      this.loading = false;
+      this.dataSource.data = data;
+    }, error => {
+      this.loading = false;
+      alert("Oops, an error ocurred!");
+    });*/
+    this._petService.getPetsBE().subscribe({
+      next: (data) => {
+        this.loading = false;
+        this.dataSource.data = data;
+      },
+      error: (e) => {
+        this.loading = false;
+        alert("Oops, an error occured!");
+      },
+      complete: () => console.info('complete')
+    })
   }
 
   deletePet(){

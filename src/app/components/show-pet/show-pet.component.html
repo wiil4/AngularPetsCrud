@@ -2,14 +2,18 @@
     <h1>SHOW PET INFO</h1>
 </div>
 
-<div class="container">
+<app-spinner *ngIf="loading"></app-spinner>
+
+<div *ngIf= "pet$ | async as pet" class="container">
+<!--<div *ngIf= "pet != null" class="container">-->
     <mat-card class="card">
-        <mat-card-title>Albus</mat-card-title>
+        <!--{{pet | json}}-->
+        <mat-card-title>{{pet.name}}</mat-card-title>
         <mat-card-content>
-            <p><strong>Race:</strong> Westie</p>
-            <p><strong>Color:</strong> White</p>
-            <p><strong>Weight:</strong> 7</p>
-            <p><strong>Age:</strong> 5</p>
+            <p><strong>Race:</strong> {{pet.race}}</p>
+            <p><strong>Color:</strong> {{pet.color}}</p>
+            <p><strong>Weight:</strong> {{pet.weight}} </p>
+            <p><strong>Age:</strong> {{pet.age}} años </p>
         </mat-card-content>
         <mat-card-actions>
             <button routerLink="/petList" mat-raised-button>Go Back To List</button>

@@ -18,4 +18,8 @@ export class PetService {
     //console.log(`${this.myAppUrl}${this.myApiUrl}`);
     return this.http.get<Pet[]>(`${this.myAppUrl}${this.myApiUrl}`);
   }
+
+  getPetBE(id: number): Observable<Pet>{
+    return this.http.get<Pet>(`${this.myAppUrl}${this.myApiUrl}${id}`);
+  }
 }

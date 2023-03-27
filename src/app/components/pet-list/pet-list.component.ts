@@ -69,16 +69,19 @@ export class PetListComponent implements OnInit, AfterViewInit {
     })
   }
 
-  deletePet(){
+  deletePet(id:number){
     this.loading = true;
-
-    setTimeout(()=>{
+    this._petService.deletePetBE(id).subscribe(() =>{
+      this.SuccessMessage();
       this.loading = false;
-      this._snackBar.open("Pet Correctly Deleted",'',{
-        duration: this.snackBarDuration,
-        horizontalPosition: 'right'
-      });
-    }, 3000);
-    
+      this.getPets();
+    })    
+  }
+
+  SuccessMessage(){
+    this._snackBar.open("Pet Correctly Deleted",'',{
+      duration: this.snackBarDuration,
+      horizontalPosition: 'right'
+    });
   }
 }

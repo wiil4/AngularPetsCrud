@@ -19,11 +19,15 @@ export class PetService {
     return this.http.get<Pet[]>(`${this.myAppUrl}${this.myApiUrl}`);
   }
 
-  getPetBE(id: number): Observable<Pet>{
+  getPetBE(id:number): Observable<Pet>{
     return this.http.get<Pet>(`${this.myAppUrl}${this.myApiUrl}${id}`);
   }
 
   deletePetBE(id:number): Observable<void>{
     return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}${id}`);
+  }
+
+  addPetBE(pet:Pet): Observable<Pet>{
+    return this.http.post<Pet>(`${this.myAppUrl}${this.myApiUrl}`, pet);
   }
 }

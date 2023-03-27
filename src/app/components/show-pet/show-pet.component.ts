@@ -23,6 +23,7 @@ export class ShowPetComponent implements OnInit {
 
   ngOnInit(): void{
     this.loading = true;
+    //requesting pet by id with pipe async
     this.pet$ = this._petService.getPetBE(this.id);
     if(this.pet$ != null)
     {

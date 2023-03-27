@@ -49,7 +49,7 @@
             </th>
             <td mat-cell *matCellDef="let element">
                 <mat-icon routerLink="/showPet/{{element.id}}" matTooltip="Show" fontIcon="search" class="search"></mat-icon>
-                <mat-icon [routerLink]="['/editPet',2]" matTooltip="Edit" fontIcon="edit" class="edit"></mat-icon>
+                <mat-icon [routerLink]="['/editPet',element.id]" matTooltip="Edit" fontIcon="edit" class="edit"></mat-icon>
                 <mat-icon (click)="deletePet(element.id)" matTooltip="Delete" fontIcon="delete" class="delete"></mat-icon>
 
             </td>

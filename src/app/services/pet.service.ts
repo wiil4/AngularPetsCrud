@@ -30,4 +30,7 @@ export class PetService {
   addPetBE(pet:Pet): Observable<Pet>{
     return this.http.post<Pet>(`${this.myAppUrl}${this.myApiUrl}`, pet);
   }
+  updatePetBe(id:Number, pet:Pet): Observable<void>{
+    return this.http.put<void>(`${this.myAppUrl}${this.myApiUrl}${id}`,pet);
+  }
 }
